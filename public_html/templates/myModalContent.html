@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title"><input ng-model="$ctrl.laji" placeholder="Kirjoita nimi"></h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form novalidate>
+        <div>
+            <div my-slider><div my-slider-slider data-ng-model="slider"><div my-slider-value>{{slider}}</div></div></div>
+        </div>
+        
+        <div class="alert alert-info">
+            <div info-mark>i</div> "ID"- ja "Nimi"-kentät luodaan automaattisesti. Näitä ei siis tarvitse merkitä tähän
+          </div>
+        
+        <div ng-repeat='num in $ctrl.haeNumero(slider) track by $index' ng-class="$index">
+            <span>Kenttä no.{{$index}}</span>
+            <input  class="name_{{$index}} form-control" ng-model="$ctrl.name[$index]" placeholder='Ominaisuuden nimi(esim. pituus, kuvaus)'>
+            <div class="form-group">
+                <input class="type_{{$index}} form-control" ng-model="$ctrl.desc[$index]" ng-blur="$ctrl.checkValid($index)" placeholder='Ominaisuuden tyyppi(esim. number, text)'>
+            </div>
+            <span class='alert alert-danger' ng-show="$ctrl.show[$index]">Vääränlainen tyyppi. Kirjoita 'text' tai 'number'</span>
+        </div>
+        
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.add()">Lisää</button>
+    <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Peruuta</button>
+</div>

@@ -1,0 +1,55 @@
+<html ng-app="mokkidbApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>MökkiDB</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--AngularJS-->
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-route.min.js"></script>
+        
+        <script src="bootstrap-gh-pages/ui-bootstrap-tpls-2.5.0.min.js"></script>
+        
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
+        <script src="js/app.js"></script>
+        <script src="js/directives.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src='js/services.js'></script>
+        <script src="js/components.js"></script>
+        
+        <link href="css/styles.css" rel="stylesheet">
+        
+    </head>
+    <body>
+        <div class="container" ng-controller="mokkidbCtrl">
+            
+            <h1 class="col-md-8">MökkiDB</h1>
+            <button class="btn btn-success" ng-click="modalOpen()">Lisää Laji</button>
+            
+            <select ng-options="laji for laji in lajit" ng-model="selectedOption" class="form-control" ng-change="lajiVaihto()">
+                
+            </select>
+            
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th ng-repeat="col in cols">{{col[0]}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-class="nimi[0]" ng-repeat="nimi in nimet | myFilter:selectedOption">
+                        <td ng-repeat="n in nimi | limitTo:nimi.length-1 track by $index">{{n}}</td>
+                    </tr>
+                    <tr class="{{data.total_rows + 1}}">
+                        <td>{{data.total_rows + 1}}</td>
+                        <td ><input ng-blur="NewElement($event, (data.total_rows+1))" class="name form-control" typeahead placeholder="Kirjoita..."></td>
+                        <td ng-repeat="col in inputCols | limitTo:inputCols.length-2 track by $index" ng-switch="getType($index+3)"><input ng-switch-when="text" type="text" ng-blur="Update($event, (data.total_rows+1), $index)" class="desc_{{$index}} form-control" placeholder="Kirjoita..."><input ng-switch-when="number" type="number" ng-blur="Update($event, (data.total_rows+1), $index)" class="desc_{{$index}} form-control" placeholder="Kirjoita..."></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </body>
+</html>

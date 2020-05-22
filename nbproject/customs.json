@@ -1,0 +1,10 @@
+{
+    "elements": {
+        "typeahead": {}
+    },
+    "attributes": {
+        "typeahead-item": {
+            "context": "li"
+        }
+    }
+}
